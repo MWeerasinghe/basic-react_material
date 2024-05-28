@@ -12,6 +12,9 @@ export default function Student() {
     const[name,setName]=useState('');
     const[address,setAddress]=useState('');
 
+    //for getting info
+    const[students,setStudents]=useState([]);
+
     const handleClick=(e)=>{
         e.preventDefault()
         const student={name,address}
@@ -26,6 +29,14 @@ export default function Student() {
             console.log("New Student added")
         })
     }
+
+    React.useEffect(()=>{
+        fetch("http://localhost:8080/student/getAll")
+        .then(res=>res.json())
+        .then((result)=>{
+            setStudents(result);
+        })
+    },[])
 
   return (
     <Container>
